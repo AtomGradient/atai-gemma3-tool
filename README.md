@@ -24,11 +24,13 @@ Run the CLI tool from your terminal by specifying the path to your image file an
 
 ```bash
 atai-gemma3-tool "path/to/your/local_image.jpg" --prompt "Describe this image in detail."
+
+atai-gemma3-tool https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/p-blog/candy.JPG
 ```
 
 ### Command Line Arguments
 
-- **image_path**: The path to your local image file.
+- **image_path**: The path to your local image file or a image url.
 - **--prompt**: *(Optional)* Custom prompt for text generation.  
   Default: `"Describe this image in detail."`
 
