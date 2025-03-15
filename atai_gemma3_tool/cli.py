@@ -114,10 +114,10 @@ def main():
         help="Optional prompt to use for generation"
     )
     parser.add_argument(
-        "--stream",
-        action="store_true",
-        default=False,
-        help="Stream tokens as they are generated (default: output complete text at the end)"
+        "--no-stream",
+        action="store_false",
+        dest="stream",
+        help="Disable streaming output (collect and print complete text at the end)"
     )
     args = parser.parse_args()
     asyncio.run(generate_text_from_image_async(args.image_path, args.prompt, args.stream))
