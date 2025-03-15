@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='atai-gemma3-tool',
-    version='0.0.2',
+    version='0.0.3',
     description='CLI tool for generating text from images using the Gemma 3 model.',
     author='AtomGradient',
     author_email="alex@atomgradient.com",
