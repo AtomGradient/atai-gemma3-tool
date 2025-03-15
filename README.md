@@ -15,6 +15,8 @@ atai-gemma3-tool is a command-line interface (CLI) tool that uses Google's Gemma
 Clone the repository and install the package in editable mode:
 
 ```bash
+pip install git+https://github.com/huggingface/transformers@v4.49.0-Gemma-3
+
 pip install atai-gemma3-tool
 ```
 
