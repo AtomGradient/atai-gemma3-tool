@@ -39,7 +39,7 @@ async def stream_tokens_async(inputs, processor, model):
             break
         yield token
 
-async def generate_text_from_image_async(image_path: str, prompt: str):
+async def generate_text_from_image_async(image_path: str, prompt: str, stream_output: bool):
     model_id = "google/gemma-3-4b-it"
 
     # Load the image from a URL or a local file.
@@ -89,10 +89,18 @@ async def generate_text_from_image_async(image_path: str, prompt: str):
     ).to(model.device, dtype=torch.bfloat16)
 
     # Stream tokens asynchronously and print them as they arrive.
-    # print("Generating text...\n")
-    async for token in stream_tokens_async(inputs, processor, model):
-        print(token, end="", flush=True)
-    print()  # New line at the end.
+    if stream_output:
+        # Streaming output: print tokens as they arrive.
+        async for token in stream_tokens_async(inputs, processor, model):
+            print(token, end="", flush=True)
+        print()
+    else:
+        # Non-streaming: collect all tokens and print them at once.
+        tokens = []
+        async for token in stream_tokens_async(inputs, processor, model):
+            tokens.append(token)
+        final_output = "".join(tokens)
+        print(final_output)
 
 def main():
     parser = argparse.ArgumentParser(
@@ -105,8 +113,14 @@ def main():
         default="Describe this image in detail.",
         help="Optional prompt to use for generation"
     )
+    parser.add_argument(
+        "--stream",
+        action="store_true",
+        default=False,
+        help="Stream tokens as they are generated (default: output complete text at the end)"
+    )
     args = parser.parse_args()
-    asyncio.run(generate_text_from_image_async(args.image_path, args.prompt))
+    asyncio.run(generate_text_from_image_async(args.image_path, args.prompt, args.stream))
 
 if __name__ == "__main__":
     main()
