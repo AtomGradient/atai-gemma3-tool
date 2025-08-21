@@ -40,7 +40,7 @@ async def stream_tokens_async(inputs, processor, model):
         yield token
 
 async def generate_text_from_image_async(image_path: str, prompt: str, stream_output: bool):
-    model_id = "google/gemma-3-4b-it"
+    model_id = "google/gemma-3-270m-it"
 
     # Load the image from a URL or a local file.
     if image_path.startswith("http://") or image_path.startswith("https://"):
